@@ -1,0 +1,922 @@
+<title>Кто ты в команде Одиссеи</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root{
+    --ground:#f4ecd8;
+    --ink:#182430;
+    --ink-soft:#4c5a63;
+    --surface:#fffcf4;
+    --surface-2:#ece0c2;
+    --line:#d8c69a;
+    --accent:#a8752f;
+    --accent-strong:#8a5c1f;
+    --accent-2:#2c6a76;
+    --accent-2-soft:#dfeef0;
+    --shadow: 0 18px 40px -22px rgba(24,36,48,.45);
+    --radius: 18px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#0a1c26;
+      --ink:#ecdfc3;
+      --ink-soft:#a9bcc4;
+      --surface:#102938;
+      --surface-2:#16344470;
+      --line:#2c4c58;
+      --accent:#dcac52;
+      --accent-strong:#eec472;
+      --accent-2:#6db6c2;
+      --accent-2-soft:#173944;
+      --shadow: 0 18px 44px -20px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0a1c26;
+    --ink:#ecdfc3;
+    --ink-soft:#a9bcc4;
+    --surface:#102938;
+    --surface-2:#16344470;
+    --line:#2c4c58;
+    --accent:#dcac52;
+    --accent-strong:#eec472;
+    --accent-2:#6db6c2;
+    --accent-2-soft:#173944;
+    --shadow: 0 18px 44px -20px rgba(0,0,0,.6);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--ground);
+    color:var(--ink);
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.5;
+  }
+  .wrap{
+    max-width:760px;
+    margin:0 auto;
+    padding-inline:20px;
+  }
+  a{color:var(--accent-strong);}
+
+  .eyebrow{
+    font-family:'Cinzel',serif;
+    font-size:.72rem;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:600;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces',serif;
+    text-wrap:balance;
+    margin:0;
+    font-weight:600;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding-block:56px 40px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-waves{
+    position:absolute; inset:auto 0 0 0; height:120px;
+    z-index:0; opacity:.55;
+  }
+  .hero-inner{position:relative; z-index:1;}
+  .ship-badge{
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:22px;
+  }
+  .ship-badge svg{width:34px;height:34px;flex:none;}
+  .ship-name{
+    font-family:'Cinzel',serif;
+    font-size:.95rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .ship-name b{color:var(--ink);}
+
+  .hero h1{
+    font-size:clamp(2.1rem, 5.5vw, 3.1rem);
+    line-height:1.06;
+    margin-top:6px;
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--accent-strong);
+  }
+  .hero p.lede{
+    max-width:56ch;
+    font-size:1.05rem;
+    color:var(--ink-soft);
+    margin-top:16px;
+  }
+
+  .voyage-log{
+    margin-top:28px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:20px 22px;
+    box-shadow:var(--shadow);
+  }
+  .voyage-log p{
+    margin:0 0 10px 0;
+    color:var(--ink-soft);
+    font-size:.96rem;
+  }
+  .voyage-log p:last-child{margin-bottom:0;}
+  .voyage-log .signature{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    color:var(--ink);
+    font-size:1rem;
+    margin-top:14px;
+  }
+
+  .route-strip{
+    display:flex; align-items:center; gap:10px;
+    margin-top:22px;
+    font-family:'Cinzel',serif;
+    font-size:.72rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    flex-wrap:wrap;
+  }
+  .route-strip .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex:none;}
+  .route-strip .port{color:var(--ink);}
+
+  .start-btn{
+    margin-top:30px;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:var(--accent);
+    color:#241804;
+    border:none;
+    font-family:'Cinzel',serif;
+    font-size:.85rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    font-weight:600;
+    padding:15px 26px;
+    border-radius:999px;
+    cursor:pointer;
+    box-shadow: 0 14px 30px -14px rgba(168,117,47,.65);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  :root[data-theme="dark"] .start-btn{color:#20150a;}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .start-btn{color:#20150a;} }
+  .start-btn:hover{transform:translateY(-2px); box-shadow:0 18px 34px -14px rgba(168,117,47,.75);}
+  .start-btn:active{transform:translateY(0);}
+  .start-btn svg{width:16px;height:16px;}
+
+  /* ---------- SECTIONS toggle ---------- */
+  .screen{display:none;}
+  .screen.active{display:block;}
+
+  /* ---------- GENDER SCREEN ---------- */
+  .gender-shell{padding-block:64px 60px; text-align:center;}
+  .gender-shell h2{font-size:clamp(1.6rem,4.5vw,2.1rem); margin-bottom:10px;}
+  .gender-shell p{color:var(--ink-soft); max-width:44ch; margin:0 auto 34px auto;}
+  .gender-grid{display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
+  .gender-card{
+    width:210px;
+    background:var(--surface);
+    border:1.5px solid var(--line);
+    border-radius:var(--radius);
+    padding:26px 20px;
+    cursor:pointer;
+    transition:border-color .15s ease, transform .12s ease;
+    box-shadow:var(--shadow);
+  }
+  .gender-card:hover{border-color:var(--accent); transform:translateY(-3px);}
+  .gender-card svg{width:34px;height:34px;color:var(--accent-strong);margin-bottom:12px;}
+  .gender-card .g-title{font-family:'Fraunces',serif; font-size:1.15rem; font-weight:600; color:var(--ink); margin-bottom:4px;}
+  .gender-card .g-sub{font-size:.85rem; color:var(--ink-soft);}
+  .gender-back{
+    margin-top:30px; background:none; border:none; color:var(--ink-soft);
+    font-size:.86rem; cursor:pointer;
+  }
+  .gender-back:hover{color:var(--ink);}
+
+  /* ---------- QUIZ ---------- */
+  .quiz-shell{padding-block:44px 60px;}
+  .quiz-top{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:16px; margin-bottom:18px;
+  }
+  .quiz-count{
+    font-family:'Cinzel',serif; font-size:.72rem; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--ink-soft);
+  }
+  .quiz-count b{color:var(--accent-strong);}
+  .progress-track{
+    height:6px; border-radius:999px; background:var(--surface-2);
+    overflow:hidden; margin-bottom:34px;
+  }
+  .progress-fill{
+    height:100%; background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    border-radius:999px; width:8.33%;
+    transition:width .35s ease;
+  }
+
+  .q-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:30px 26px;
+    box-shadow:var(--shadow);
+  }
+  .q-scene{
+    font-family:'Cinzel',serif; font-size:.7rem; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--accent-2); margin-bottom:12px;
+    display:block;
+  }
+  .q-text{
+    font-family:'Fraunces',serif; font-size:1.4rem; font-weight:500;
+    line-height:1.28; margin-bottom:24px;
+  }
+  .options{display:flex; flex-direction:column; gap:10px;}
+  .opt{
+    text-align:left;
+    background:transparent;
+    border:1.5px solid var(--line);
+    border-radius:12px;
+    padding:14px 16px;
+    font-family:'Inter',sans-serif;
+    font-size:.97rem;
+    color:var(--ink);
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    display:flex; gap:12px; align-items:flex-start;
+  }
+  .opt .letter{
+    font-family:'Cinzel',serif;
+    font-weight:600;
+    color:var(--accent);
+    flex:none;
+  }
+  .opt:hover{border-color:var(--accent); background:var(--accent-2-soft); transform:translateX(2px);}
+  .opt:active{transform:translateX(0);}
+
+  .q-nav{
+    display:flex; justify-content:space-between; align-items:center;
+    margin-top:22px;
+  }
+  .back-link{
+    background:none; border:none; color:var(--ink-soft);
+    font-family:'Inter',sans-serif; font-size:.88rem; cursor:pointer;
+    padding:8px 4px; display:flex; align-items:center; gap:6px;
+  }
+  .back-link:disabled{opacity:0; pointer-events:none;}
+  .back-link:hover{color:var(--ink);}
+
+  /* ---------- RESULT ---------- */
+  .result-shell{padding-block:48px 64px;}
+  .result-eyebrow{text-align:center; margin-bottom:14px;}
+  .medallion{
+    width:132px;height:132px;margin:0 auto 22px auto;
+    border-radius:50%;
+    background:radial-gradient(circle at 32% 28%, var(--accent-2-soft), var(--surface) 70%);
+    border:2px solid var(--accent);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:var(--shadow);
+  }
+  .medallion svg{width:64px;height:64px;color:var(--accent-strong);}
+
+  .result-name{
+    text-align:center;
+    font-size:clamp(2rem,6vw,2.7rem);
+    margin-bottom:6px;
+  }
+  .result-title{
+    text-align:center;
+    font-family:'Cinzel',serif;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    font-size:.85rem;
+    color:var(--accent-2);
+    margin-bottom:28px;
+  }
+  .result-block{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:26px 26px;
+    box-shadow:var(--shadow);
+    margin-bottom:18px;
+  }
+  .result-block h3{
+    font-size:1.02rem; margin-bottom:10px; font-weight:600;
+    display:flex; align-items:center; gap:8px;
+  }
+  .result-block h3 svg{width:18px;height:18px;color:var(--accent);flex:none;}
+  .result-block p{color:var(--ink-soft); margin:0; font-size:.98rem;}
+
+  .trait-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:4px;
+  }
+  @media (max-width:520px){.trait-grid{grid-template-columns:1fr;}}
+  .trait-col .label{
+    font-family:'Cinzel',serif; font-size:.66rem; letter-spacing:.1em;
+    text-transform:uppercase; margin-bottom:8px; display:block;
+  }
+  .trait-col.strong .label{color:var(--accent-2);}
+  .trait-col.watch .label{color:var(--accent-strong);}
+  .trait-col ul{margin:0;padding-left:18px; color:var(--ink-soft); font-size:.93rem;}
+  .trait-col li{margin-bottom:6px;}
+
+  .crew-note{
+    font-family:'Fraunces',serif; font-style:italic; font-size:1.05rem;
+    color:var(--ink); border-left:3px solid var(--accent); padding-left:16px;
+    margin:0;
+  }
+
+  .all-gods{
+    margin-top:8px;
+    display:flex; flex-wrap:wrap; gap:8px;
+  }
+  .god-pill{
+    font-size:.78rem; padding:6px 12px; border-radius:999px;
+    border:1px solid var(--line); color:var(--ink-soft);
+  }
+  .god-pill.current{
+    border-color:var(--accent); color:var(--accent-strong);
+    background:var(--accent-2-soft); font-weight:600;
+  }
+
+  .result-actions{
+    display:flex; gap:12px; flex-wrap:wrap; margin-top:26px;
+  }
+  .retake-btn{
+    background:transparent; border:1.5px solid var(--line); color:var(--ink);
+    font-family:'Inter',sans-serif; font-size:.92rem; font-weight:500;
+    padding:12px 20px; border-radius:999px; cursor:pointer;
+  }
+  .retake-btn:hover{border-color:var(--accent);}
+  .share-btn{
+    background:var(--accent); color:#241804; border:none;
+    font-family:'Inter',sans-serif; font-weight:600; font-size:.92rem;
+    padding:12px 22px; border-radius:999px; cursor:pointer;
+  }
+  :root[data-theme="dark"] .share-btn{color:#20150a;}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .share-btn{color:#20150a;} }
+  .share-btn:hover{filter:brightness(1.07);}
+  .copy-hint{
+    font-size:.82rem; color:var(--ink-soft); align-self:center;
+  }
+
+  footer.foot{
+    text-align:center; padding-block:30px 40px;
+    font-size:.82rem; color:var(--ink-soft);
+  }
+</style>
+
+<div class="wrap">
+
+  <!-- ============ HERO ============ -->
+  <section id="screen-hero" class="screen active hero">
+    <svg class="hero-waves" viewBox="0 0 800 120" preserveAspectRatio="none">
+      <path d="M0,60 C100,20 200,100 300,60 C400,20 500,100 600,60 C700,20 800,60 800,60 L800,120 L0,120 Z" fill="var(--accent-2-soft)"/>
+      <path d="M0,80 C120,45 220,110 340,80 C460,50 560,110 680,80 C740,65 800,80 800,80 L800,120 L0,120 Z" fill="var(--surface-2)"/>
+    </svg>
+    <div class="hero-inner">
+      <div class="ship-badge">
+        <svg viewBox="0 0 48 48" fill="none"><path d="M24 4 L24 26" stroke="var(--accent)" stroke-width="2"/><path d="M24 8 C34 10 38 18 38 24 L24 24 Z" fill="var(--accent-2-soft)" stroke="var(--accent-2)" stroke-width="1.5"/><path d="M6 32 C10 40 38 40 42 32 L38 38 C30 42 18 42 10 38 Z" fill="var(--accent)" opacity=".85"/><path d="M8 32 L40 32 L36 26 L12 26 Z" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1"/></svg>
+        <span class="ship-name">Яхта <b>«Одиссея»</b></span>
+      </div>
+
+      <h1>Курс на Афины.<br>Кто ты в <em>команде</em>?</h1>
+      <p class="lede">Двенадцать рабочих ситуаций — про сделки, дедлайны и кризисы — и Олимп покажет, какой архетип ведёт тебя по бизнесу.</p>
+
+      <div class="voyage-log">
+        <p><strong>26 сентября — 3 октября.</strong> «Одиссея» идёт из Ионического моря через Эгейское к Пирею и дальше в Афины.</p>
+        <p>На борту собралась команда — и у каждого свой инстинкт в переговорах, в кризисе, в спорной летучке. Прежде чем поднять паруса, стоит понять, кто вы на самом деле.</p>
+        <p class="signature">— Капитанский мостик, Gravity</p>
+      </div>
+
+      <div class="route-strip">
+        <span class="port">26 сентября</span><span class="dot"></span>
+        <span>Ионическое море</span><span class="dot"></span>
+        <span>Эгейское море</span><span class="dot"></span>
+        <span class="port">Пирей</span><span class="dot"></span>
+        <span class="port" style="color:var(--accent-strong)">3 октября · Афины</span>
+      </div>
+
+      <button class="start-btn" id="start-btn">
+        Поднять паруса
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ GENDER ============ -->
+  <section id="screen-gender" class="screen gender-shell">
+    <span class="eyebrow">Перед отплытием</span>
+    <h2 style="margin-top:10px;">От чьего лица читать результат?</h2>
+    <p>Так твой архетип получит верное имя и род — один из девяти богов или богинь.</p>
+    <div class="gender-grid">
+      <div class="gender-card" id="pick-m">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="10" cy="14" r="6"/><path d="M14.2 9.8L20 4M20 4h-5M20 4v5"/></svg>
+        <div class="g-title">Мужской</div>
+        <div class="g-sub">Зевс, Гермес, Аполлон и другие</div>
+      </div>
+      <div class="gender-card" id="pick-f">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="9" r="6"/><path d="M12 15v7M8.5 19h7"/></svg>
+        <div class="g-title">Женский</div>
+        <div class="g-sub">Гера, Афина, Афродита и другие</div>
+      </div>
+    </div>
+    <button class="gender-back" id="gender-back">← назад</button>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section id="screen-quiz" class="screen quiz-shell">
+    <div class="quiz-top">
+      <span class="quiz-count">Вопрос <b id="q-current">1</b> из <span id="q-total">12</span></span>
+      <span class="quiz-count" id="q-region"></span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+
+    <div class="q-card">
+      <span class="q-scene" id="q-scene"></span>
+      <div class="q-text" id="q-text"></div>
+      <div class="options" id="q-options"></div>
+      <div class="q-nav">
+        <button class="back-link" id="back-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 6l-6 6 6 6"/></svg>
+          Назад
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RESULT ============ -->
+  <section id="screen-result" class="screen result-shell">
+    <div class="result-eyebrow" style="text-align:center;">
+      <span class="eyebrow">Мы бросили якорь в Афинах</span>
+    </div>
+    <div class="medallion" id="result-icon"></div>
+    <h2 class="result-name" id="result-name"></h2>
+    <div class="result-title" id="result-title"></div>
+
+    <div class="result-block">
+      <h3>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V6a2 2 0 012-2h9l5 5v10a2 2 0 01-2 2H6a2 2 0 01-2-2z"/><path d="M14 4v5h5"/></svg>
+        Кто ты в команде
+      </h3>
+      <p id="result-desc"></p>
+    </div>
+
+    <div class="result-block">
+      <div class="trait-grid">
+        <div class="trait-col strong">
+          <span class="label">Сильная сторона</span>
+          <ul id="result-strengths"></ul>
+        </div>
+        <div class="trait-col watch">
+          <span class="label">Держи в поле зрения</span>
+          <ul id="result-watch"></ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="result-block">
+      <h3>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.9 6.6L22 9.3l-5 4.9 1.2 7.1L12 17.9l-6.2 3.4L7 14.2 2 9.3l7.1-.7z"/></svg>
+        Из рабочего журнала
+      </h3>
+      <p class="crew-note" id="result-note"></p>
+    </div>
+
+    <div class="result-block">
+      <h3>Весь Олимп на борту</h3>
+      <div class="all-gods" id="all-gods"></div>
+    </div>
+
+    <div class="result-actions">
+      <button class="retake-btn" id="retake-btn">Пройти заново</button>
+      <button class="share-btn" id="share-btn">Скопировать результат</button>
+      <span class="copy-hint" id="copy-hint"></span>
+    </div>
+  </section>
+
+  <footer class="foot">Яхта «Одиссея» · 26 сентября — 3 октября · Греция, Афины · тест для команды Gravity</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---------- ICONS ----------
+  var ICONS = {
+    zeus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 2 4 14h6l-2 8 10-13h-6z" fill="currentColor" stroke="none"/></svg>',
+    prometheus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3c1.6 2.1 1 3.7-.4 5.2C10.2 9.8 9.2 11.2 9.2 13a2.8 2.8 0 005.6 0c0-1-.4-1.8-1-2.4"/><path d="M9 15.6a5 5 0 106.1 0"/></svg>',
+    hermes: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v13"/><path d="M8 6c0-2 1.8-3 4-3s4 1 4 3"/><path d="M6 9l6 3 6-3"/><circle cx="12" cy="19" r="2.4"/></svg>',
+    poseidon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v18"/><path d="M6 6c0 2.5 2.5 4 6 4s6-1.5 6-4"/><path d="M7 18c1.6 1 3.3 1.5 5 1.5S15.4 19 17 18"/></svg>',
+    hephaestus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 15l6-6 3 3-6 6z"/><path d="M13 9l4.5-4.5 2 2L15 11"/><path d="M6 18l-2 2"/></svg>',
+    apollo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.4"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>',
+    dionysus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="9" r="2.4"/><circle cx="13" cy="7" r="2.4"/><circle cx="16" cy="12" r="2.4"/><circle cx="10.5" cy="13" r="2.4"/><path d="M12 15.5V21"/></svg>',
+    atlas: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="9" r="5"/><path d="M12 4a5 5 0 000 10M7 9h10"/><path d="M6 21c1-3 3-4 6-4s5 1 6 4"/></svg>',
+    hades: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 11a6 6 0 0112 0v3H6z"/><path d="M4 14h16M9 14v4M15 14v4"/></svg>',
+    hera: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 19V10a7 7 0 0114 0v9"/><path d="M5 19h14M9 19v-5a3 3 0 016 0v5"/></svg>',
+    athena: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="10" r="5.2"/><path d="M9.2 8.6c.6-.9 1.6-1.4 2.8-1.4s2.2.5 2.8 1.4M9 12.5c.7.6 1.8 1 3 1s2.3-.4 3-1"/><path d="M7 20c1-2 2.6-3 5-3s4 1 5 3"/></svg>',
+    aphrodite: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="9" r="5"/><path d="M12 14v7M8.5 18h7"/></svg>',
+    artemis: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12a8 8 0 0116 0"/><path d="M4 12l16 6M20 18l-4-1 1-4"/></svg>',
+    demeter: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21V4"/><path d="M12 8c-2-2-5-2-6 0 2 2 5 2 6 0zM12 8c2-2 5-2 6 0-2 2-5 2-6 0z"/><path d="M12 13c-2-2-5-2-6 0 2 2 5 2 6 0zM12 13c2-2 5-2 6 0-2 2-5 2-6 0z"/></svg>',
+    iris: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 17a9 9 0 0118 0"/><path d="M6.5 17a5.5 5.5 0 0111 0"/><path d="M10 17a2 2 0 014 0"/></svg>',
+    nike: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12c5 1 8-2 9-9 1 7 4 10 9 9-5 3-7 7-9 9-2-2-4-6-9-9z"/></svg>',
+    hestia: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3c2 3 4 5 4 8a4 4 0 01-8 0c0-1 .3-2 1-3 .2 1.5 1 2 1.5 1-.3-2 .5-4 1.5-6z"/><path d="M6 21h12"/></svg>',
+    themis: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v18M6 21h12"/><path d="M4 8h6M14 8h6"/><path d="M4 8l-2 5a3 3 0 006 0zM20 8l-2 5a3 3 0 006 0z"/></svg>'
+  };
+
+  // ---------- ARCHETYPE -> GOD (by gender) ----------
+  var GODS = {
+    m: {
+      leader: { key:"zeus", name:"Зевс", title:"Капитан, который держит курс",
+        desc:"Когда решение нужно здесь и сейчас — ты его принимаешь и берёшь ответственность за исход, не дожидаясь идеального момента.",
+        strengths:["Решаешь быстро, когда другие тянут время","Берёшь на себя результат, даже неудачный","Собираешь команду вокруг одной цели"],
+        watch:["Иногда решаешь один там, где стоило спросить","Твой тон может заглушать чужие идеи"],
+        note:"«Пока согласовывали служебку, я уже позвонил клиенту и договорился. Объяснил — почему, уже потом»." },
+      strategist: { key:"prometheus", name:"Прометей", title:"Стратег, который видит на два хода вперёд",
+        desc:"Ты редко удивляешься происходящему — потому что уже просчитал варианты заранее и держишь план на случай, если основной не сработает.",
+        strengths:["Просчитываешь риски раньше, чем они наступят","Находишь решение там, где другие видят тупик","У тебя всегда готов план Б"],
+        watch:["Пауза на анализ иногда стоит упущенного момента","Не всегда объясняешь ход мысли остальным"],
+        note:"«Я предупреждал о рисках ещё на старте проекта. Мне поверили — на третьей неделе»." },
+      connector: { key:"hermes", name:"Гермес", title:"Переговорщик и связующее звено",
+        desc:"Ты первым находишь общий язык с новым клиентом или командой — и часто именно через тебя решается то, что буксовало неделями.",
+        strengths:["Легко находишь общий язык с кем угодно","Быстро переключаешься между задачами и людьми","Приносишь в команду нужные связи"],
+        watch:["Скорость иногда важнее точности деталей","Обещаешь больше, чем успеваешь выполнить"],
+        note:"«Договорился о встрече, пока остальные ещё писали письмо с просьбой её назначить»." },
+      crisis: { key:"poseidon", name:"Посейдон", title:"Тот, кто спокоен в шторм",
+        desc:"В спокойные недели тебя почти не видно, но стоит начаться кризису — и именно ты берёшь управление: под давлением решения даются тебе легче, чем рутина.",
+        strengths:["Не теряешься в кризис, а собираешься","Принимаешь быстрые решения под давлением","Держишь курс, когда остальные держатся за стол"],
+        watch:["В спокойные периоды теряешь интерес к рутине","Резкость в кризис может пугать команду"],
+        note:"«Клиент ушёл в отказ в пятницу вечером. К понедельнику у меня уже был новый план»." },
+      executor: { key:"hephaestus", name:"Гефест", title:"Мастер, который доводит до результата",
+        desc:"Пока другие обсуждают стратегию, ты уже чинишь то, без чего всё это не сдвинется с места. Работа не всегда на виду — но без неё ничего не работает.",
+        strengths:["Делаешь работу качественно, без халтуры","Замечаешь детали, которые другие пропускают","Держишь процесс на ходу в любых условиях"],
+        watch:["Недооцениваешь ценность своего вклада вслух","Уходишь в детали, теряя общую картину"],
+        note:"«Три часа чинил интеграцию — никто не заметил. Зато никто не заметил и то, что мы чуть не сорвали релиз»." },
+      inspirer: { key:"apollo", name:"Аполлон", title:"Голос, который заряжает команду",
+        desc:"Когда энтузиазм проседает, именно твои слова снова собирают всех — ты умеешь рассказать о работе так, что в неё хочется верить.",
+        strengths:["Держишь общий настрой команды на высоте","Превращаешь сухую задачу в понятную историю","Замечаешь и называешь вслух то, что получилось"],
+        watch:["Вдохновение не заменяет расчёт и цифры","Хочешь нравиться всем сразу"],
+        note:"«Собрал команду перед сложным звонком и просто напомнил, зачем мы это делаем. Звонок прошёл лучше, чем ожидали»." },
+      riskTaker: { key:"dionysus", name:"Дионис", title:"Тот, кто предлагает то, чего ещё не пробовали",
+        desc:"Ты первым говоришь «а давайте по-другому» — и команда либо восторгается идеей, либо выдыхает после очередного смелого предложения. Среднего не бывает.",
+        strengths:["Первым пробуешь нестандартный подход","Заражаешь команду азартом и энергией","Снимаешь напряжение после тяжёлого периода"],
+        watch:["Риск ради риска может стоить дорого","Дисциплина и рутина — не твоя сильная сторона"],
+        note:"«Предложил обойти тендер через прямой питч владельцу компании — никто так не делал. Получилось»." },
+      guardian: { key:"atlas", name:"Атлант", title:"Тот, на ком всё держится",
+        desc:"Ты редко на виду, но именно на тебе — регулярные задачи и обещания, которые никто больше не помнит. Без этой опоры всё остальное быстро рассыпается.",
+        strengths:["Держишь на себе рутину, о которой другие забывают","Не бросаешь начатое на середине","Команда может на тебя положиться без напоминаний"],
+        watch:["Редко просишь разделить с тобой нагрузку","Твой вклад легко остаётся незамеченным"],
+        note:"«Три месяца вёл отчётность, которую никто не проверял. В момент аудита это всех спасло»." },
+      analyst: { key:"hades", name:"Аид", title:"Тот, кто видит то, что скрыто",
+        desc:"Ты не спешишь с выводами на летучке — ты идёшь и разбираешься сам, в деталях и документах, которые никто не удосужился прочитать до конца.",
+        strengths:["Замечаешь то, что пропускают на первый взгляд","Проверяешь факты, а не полагаешься на мнения","Работаешь тщательно там, где другие торопятся"],
+        watch:["Можешь долго не делиться тем, что уже понял","Скептицизм иногда читается как недоверие к команде"],
+        note:"«Перечитал договор в третий раз и нашёл пункт, который всех спас через полгода»." }
+    },
+    f: {
+      leader: { key:"hera", name:"Гера", title:"Та, что держит курс и авторитет",
+        desc:"Твоё слово в команде весит много — ты не боишься принять непопулярное решение и довести его до конца, невзирая на шум вокруг.",
+        strengths:["Держишь слово и не отступаешь под давлением","Видишь картину целиком, а не только свой участок","Люди чувствуют в тебе опору в спорных вопросах"],
+        watch:["Контроль иногда мешает команде проявить инициативу","Несогласие с тобой воспринимаешь слишком лично"],
+        note:"«Мне сказали, что решение слишком жёсткое. Через месяц оно оказалось единственным рабочим»." },
+      strategist: { key:"athena", name:"Афина", title:"Стратег с холодной головой",
+        desc:"В споре побеждает не тот, кто громче, а тот, у кого точнее цифры и план — и это обычно ты.",
+        strengths:["Принимаешь решения на основе фактов, а не эмоций","Спокойна, когда вокруг паника","Находишь неочевидный, но верный путь"],
+        watch:["Скорость решения иногда важнее его идеальности","Не всегда делишься ходом мысли вслух"],
+        note:"«Пока обсуждали, кто виноват, я уже пересчитала бюджет и нашла, откуда взять недостающее»." },
+      connector: { key:"aphrodite", name:"Афродита", title:"Та, что объединяет команду",
+        desc:"Сделки и решения даются тебе легко, потому что люди тебе доверяют — а доверие ты выстраиваешь заранее, а не в момент, когда оно нужно.",
+        strengths:["Создаёшь доверие быстрее, чем кто-либо в команде","Чувствуешь настроение людей раньше конфликта","Объединяешь несогласных вокруг общей цели"],
+        watch:["Избегаешь неприятных, но нужных разговоров","Личные симпатии иногда влияют на решения"],
+        note:"«Пока все спорили на летучке, я просто написала каждому лично — и мы договорились за час»." },
+      crisis: { key:"artemis", name:"Артемида", title:"Та, что решает точно и без паники",
+        desc:"Ты не суетишься в кризис — ты целишься. Одно точное решение вместо десяти нервных — вот твой стиль работы под давлением.",
+        strengths:["Действуешь точно и быстро, без лишних движений","Не поддаёшься общей панике","Доводишь трудную задачу до конца в одиночку, если нужно"],
+        watch:["Неохотно просишь помощи, даже когда она нужна","Цель иногда важнее людей рядом"],
+        note:"«Пока все обсуждали, что делать, я уже отправила клиенту решение. Обсуждение стало не нужно»." },
+      executor: { key:"demeter", name:"Деметра", title:"Та, что доводит дело до результата",
+        desc:"Ты следишь, чтобы обещанное действительно случилось — ресурсы, сроки, качество. Без этой вахты у команды остаются красивые планы и пустые результаты.",
+        strengths:["Доводишь начатое до конца, несмотря на препятствия","Держишь ресурсы и сроки под контролем","Даёшь команде ощущение стабильности"],
+        watch:["Тяжело отпускаешь контроль над деталями","Строгость иногда мешает импровизации"],
+        note:"«Пересчитала бюджет проекта в третий раз за месяц. В четвёртый раз он наконец сошёлся»." },
+      inspirer: { key:"iris", name:"Ирида", title:"Та, что доносит смысл до каждого",
+        desc:"Ты умеешь объяснить сложное простыми словами — и именно поэтому решения сверху доходят до команды не искажёнными, а мотивирующими.",
+        strengths:["Переводишь сложные решения на понятный язык","Держишь связь между руководством и командой","Умеешь вовремя сказать нужные слова"],
+        watch:["Иногда смягчаешь неудобную правду сильнее, чем нужно","Тратишь много энергии на то, чтобы всех услышать"],
+        note:"«Перевела сухое письмо от инвесторов в три понятных пункта для команды. Паники не случилось»." },
+      riskTaker: { key:"nike", name:"Ника", title:"Та, что играет на победу",
+        desc:"Тебе мало просто сделать работу — тебе важно выиграть: тендер, спор, квартал. Азарт конкуренции включает тебя сильнее, чем стабильность.",
+        strengths:["Работаешь на результат, а не на процесс","Не боишься конкурировать за сложную цель","Заряжаешь команду духом соревнования"],
+        watch:["Соперничество иногда важнее командного духа","Тяжело переживаешь даже небольшие поражения"],
+        note:"«Сказала команде: мы либо выигрываем этот тендер, либо нет — среднего не будет. Выиграли»." },
+      guardian: { key:"hestia", name:"Гестия", title:"Та, на ком держится порядок",
+        desc:"Ты следишь, чтобы у команды было пространство работать спокойно — без хаоса, забытых договорённостей и выгорания. Работа незаметная, но именно она держит всё вместе.",
+        strengths:["Создаёшь стабильную атмосферу для работы","Замечаешь усталость команды раньше, чем она станет проблемой","Держишь порядок в мелочах, которые другие не видят"],
+        watch:["Сложно уступаешь привычный уклад ради нового","Порядок иногда важнее для тебя, чем скорость"],
+        note:"«Завела простое правило: пятница без встреч. Через месяц команда сама попросила его не отменять»." },
+      analyst: { key:"themis", name:"Фемида", title:"Та, что смотрит на факты, а не на мнения",
+        desc:"В споре, где у всех своя версия, ты — та, кто идёт проверять, как было на самом деле. Тебе важно, чтобы решение было не только удобным, но и справедливым.",
+        strengths:["Разбираешься в сути, а не в эмоциях спора","Принимаешь решения объективно, без любимчиков","Тебе доверяют финальное слово в спорных вопросах"],
+        watch:["Строгая объективность иногда воспринимается как холодность","Долгая проверка фактов может тормозить скорость"],
+        note:"«Подняла переписку трёхмесячной давности, чтобы понять, кто на самом деле обещал этот срок»." }
+    }
+  };
+  var ARCHETYPE_ORDER = ["leader","strategist","connector","crisis","executor","inspirer","riskTaker","guardian","analyst"];
+
+  // ---------- QUESTIONS ----------
+  // s: {archetypeKey: points}
+  var QUESTIONS = [
+    { scene:"Агора · переговоры с клиентом", region:"26 сентября",
+      q:"Клиент на встрече вдруг просит скидку, которой нет в бюджете. Твои действия?",
+      opts:[
+        {t:"Беру решение на себя и называю встречное условие прямо сейчас.", s:{leader:1}},
+        {t:"Прошу минуту, быстро считаю, что мы реально можем дать.", s:{strategist:1}},
+        {t:"Перевожу разговор в шутку и предлагаю обсудить детали позже, за кофе.", s:{connector:1}},
+        {t:"Сразу предлагаю конкретный объём работ, который оправдывает цену.", s:{executor:1}},
+        {t:"Рассказываю историю похожего клиента, для которого мы сделали невозможное.", s:{inspirer:1}},
+        {t:"Прошу время и разбираю условия контракта построчно — скидка должна быть обоснована.", s:{analyst:1}}
+      ]
+    },
+    { scene:"Пифия · планирование квартала", region:"27 сентября",
+      q:"Команда планирует следующий квартал. Что ты предлагаешь в первую очередь?",
+      opts:[
+        {t:"Смотрим на цифры прошлого периода и строим прогноз от них.", s:{strategist:2}},
+        {t:"Ставим одну амбициозную цель и подчиняем ей всё остальное.", s:{leader:2}},
+        {t:"Спрашиваю каждого, что реально можно сделать своими руками.", s:{executor:2}},
+        {t:"Закладываю запасной план на случай, если всё пойдёт не так.", s:{crisis:1}},
+        {t:"Предлагаю попробовать то, чего мы ещё никогда не делали.", s:{riskTaker:1}},
+        {t:"Слежу, чтобы план не перегрузил команду до выгорания.", s:{guardian:1}}
+      ]
+    },
+    { scene:"Совет старейшин · закрыть один из двух проектов", region:"27 сентября",
+      q:"На совещании нужно решить, какой из двух проектов закрыть. Обсуждение идёт по кругу. Твоя роль?",
+      opts:[
+        {t:"Беру паузу, потом объявляю решение — обсуждать дальше бессмысленно.", s:{leader:3}},
+        {t:"Прошу свести цифры по обоим проектам — решаем по фактам.", s:{strategist:3}},
+        {t:"Предлагаю компромисс, который сохранит лицо всем сторонам.", s:{connector:2}},
+        {t:"Иду разбираться в деталях каждого проекта лично, прежде чем говорить.", s:{executor:3}},
+        {t:"Поднимаю переписку — какой проект изначально обещали довести до конца.", s:{analyst:1}},
+        {t:"Говорю прямо: тянуть время дороже, чем ошибиться — закрываем оба, запускаем новый.", s:{crisis:2}}
+      ]
+    },
+    { scene:"Кузница · сбой перед дедлайном", region:"28 сентября",
+      q:"Важный процесс сломался прямо перед дедлайном. Что делаешь?",
+      opts:[
+        {t:"Чиню сама, разбор — потом.", s:{executor:4}},
+        {t:"Быстро перераспределяю задачи между людьми, чтобы успеть.", s:{leader:1}},
+        {t:"Считаю, сколько реально времени есть и что можно спасти.", s:{strategist:4}},
+        {t:"Обзваниваю всех, кого можем подключить на помощь.", s:{connector:3}},
+        {t:"Остаюсь спокойным — уже видел такое, знаю, что делать.", s:{crisis:3}},
+        {t:"Прежде всего проверяю, не пострадали ли данные и соседние процессы.", s:{guardian:2}}
+      ]
+    },
+    { scene:"Гавань · партнёр сомневается", region:"29 сентября",
+      q:"Новый партнёр готов подписать контракт, но в последний момент начинает сомневаться. Твой ход?",
+      opts:[
+        {t:"Рассказываю историю клиента, для которого мы уже сделали похожее.", s:{connector:1}},
+        {t:"Показываю точные цифры и гарантии в договоре.", s:{analyst:1}},
+        {t:"Предлагаю нестандартные условия — например, оплату по результату.", s:{riskTaker:1}},
+        {t:"Спокойно жду его решения, не давлю — паника лишь усилит его сомнения.", s:{crisis:1}},
+        {t:"Показываю, каким он увидит результат через полгода — рисую картину будущего.", s:{inspirer:1}},
+        {t:"Предлагаю пилот на маленьком объёме — так риск для обеих сторон меньше.", s:{guardian:1}}
+      ]
+    },
+    { scene:"Буря · проект на грани срыва", region:"30 сентября",
+      q:"Проект на грани срыва, клиент недоволен, команда на нервах. Что происходит с тобой?",
+      opts:[
+        {t:"Собираюсь как никогда — кризис я понимаю лучше, чем штиль.", s:{crisis:3}},
+        {t:"Беру командование, раздаю чёткие задачи всем.", s:{leader:2}},
+        {t:"Сажусь считать, что реально можно спасти за оставшееся время.", s:{strategist:2}},
+        {t:"Иду туда, где не хватает рук — разбираться в деталях самому.", s:{executor:2}},
+        {t:"Держусь рядом с теми, кому тяжелее всех сейчас.", s:{connector:2}},
+        {t:"Предлагаю смелый нестандартный ход — терять уже нечего.", s:{riskTaker:2}}
+      ]
+    },
+    { scene:"Пир · признание вклада", region:"1 октября",
+      q:"На итоговой встрече отмечают вклад команды. Что тебе важнее всего услышать?",
+      opts:[
+        {t:"«Ты нашёл выход там, где казалось, что выхода нет».", s:{strategist:2}},
+        {t:"«Ты сделал то, что не заметно, но без чего ничего бы не работало».", s:{executor:2}},
+        {t:"«Ты держал команду вместе, когда было тяжело».", s:{connector:2}},
+        {t:"«С тобой даже кризис был не так страшен».", s:{crisis:2}},
+        {t:"«Про твою идею потом рассказывали как пример на планёрке».", s:{inspirer:2}},
+        {t:"«Благодаря тебе никто в команде не перегорел за этот проект».", s:{guardian:2}}
+      ]
+    },
+    { scene:"Лабиринт · задача без брифа", region:"1 октября",
+      q:"Дали задачу без чёткого брифа и без ресурсов. Как действуешь?",
+      opts:[
+        {t:"Иду разбираться сама, шаг за шагом, пока не пойму суть.", s:{executor:2}},
+        {t:"Изучаю прошлые похожие задачи и документацию — там обычно есть ответ.", s:{analyst:2}},
+        {t:"Уточняю у руководителя рамки и сроки, прежде чем начинать.", s:{guardian:2}},
+        {t:"Договариваюсь о дополнительном времени или бюджете.", s:{connector:2}},
+        {t:"Принимаю неопределённость и действую по ситуации.", s:{crisis:2}},
+        {t:"Пробую нестандартный подход — раз рамок нет, можно рискнуть.", s:{riskTaker:2}}
+      ]
+    },
+    { scene:"Ристалище · тендер против крупного конкурента", region:"2 октября",
+      q:"Нужно выиграть тендер у более крупного конкурента. Твоя стратегия?",
+      opts:[
+        {t:"Готовлю яркую презентацию, которая западает в память комиссии.", s:{inspirer:2}},
+        {t:"Изучаю все публичные данные о конкуренте и нахожу его слабое место.", s:{analyst:2}},
+        {t:"Выхожу и просто убедительно защищаю идею перед комиссией.", s:{leader:1}},
+        {t:"Показываю конкретный результат, уже сделанный руками команды.", s:{executor:1}},
+        {t:"Предлагаю нестандартное условие, на которое конкурент не решится.", s:{riskTaker:2}},
+        {t:"Показываю, что мы умеем работать стабильно и без сюрпризов — это тоже аргумент.", s:{guardian:2}}
+      ]
+    },
+    { scene:"Оливковая ветвь · конфликт в команде", region:"2 октября",
+      q:"Два сотрудника конфликтуют, и это тормозит работу. Что делаешь?",
+      opts:[
+        {t:"Развожу их по разным задачам — время само расставит по местам.", s:{leader:1}},
+        {t:"Сажаю за стол и разбираю ситуацию по фактам, без эмоций.", s:{analyst:2}},
+        {t:"Говорю с каждым лично, ищу, что на самом деле болит.", s:{connector:2}},
+        {t:"Принимаю решение и закрываю вопрос — обсуждение окончено.", s:{crisis:1}},
+        {t:"Даю им доделать спорную задачу вместе — так помирятся быстрее.", s:{executor:1}},
+        {t:"Собираю команду и превращаю разбор в общий урок, без поиска виноватых.", s:{inspirer:2}}
+      ]
+    },
+    { scene:"Маяк · наставничество", region:"3 октября",
+      q:"Младший коллега просит совета перед сложной встречей. Что ты делаешь?",
+      opts:[
+        {t:"Разбираю с ним всё по шагам — от цифр до возражений.", s:{strategist:2}},
+        {t:"Говорю: «Иди и решай сама, я подстрахую, если что».", s:{crisis:1}},
+        {t:"Иду с ним и беру сложную часть на себя.", s:{executor:1}},
+        {t:"Знакомлю его с нужными людьми заранее.", s:{connector:2}},
+        {t:"Рассказываю похожую историю из своего опыта — так проще, чем просто советовать.", s:{inspirer:1}},
+        {t:"Напоминаю не забыть про баланс — не всё нужно решать сегодня.", s:{guardian:1}}
+      ]
+    },
+    { scene:"Итог похода · Афины на горизонте", region:"3 октября",
+      q:"Оглядываясь на этот период работы, что для тебя главный результат?",
+      opts:[
+        {t:"Я научился вести других через неопределённость.", s:{leader:2}},
+        {t:"Мы нашли решение, которое сработало лучше плана.", s:{strategist:1}},
+        {t:"Мы стали настоящей командой, а не просто коллегами.", s:{connector:2}},
+        {t:"Всё, что мы обещали, было сделано и работает.", s:{executor:2}},
+        {t:"Мы не сорвались даже там, где было страшно.", s:{crisis:2}},
+        {t:"Мы рискнули там, где остальные бы не решились — и выиграли.", s:{riskTaker:2}}
+      ]
+    }
+  ];
+
+  // ---------- STATE ----------
+  var current = 0;
+  var gender = null; // 'm' | 'f'
+  var answers = new Array(QUESTIONS.length).fill(null);
+  var scores = {};
+
+  function resetScores(){
+    scores = {};
+    ARCHETYPE_ORDER.forEach(function(a){ scores[a] = 0; });
+  }
+
+  var screens = {
+    hero: document.getElementById('screen-hero'),
+    gender: document.getElementById('screen-gender'),
+    quiz: document.getElementById('screen-quiz'),
+    result: document.getElementById('screen-result')
+  };
+  function showScreen(name){
+    Object.keys(screens).forEach(function(k){ screens[k].classList.toggle('active', k===name); });
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  var qCurrentEl = document.getElementById('q-current');
+  var qTotalEl = document.getElementById('q-total');
+  var qRegionEl = document.getElementById('q-region');
+  var qSceneEl = document.getElementById('q-scene');
+  var qTextEl = document.getElementById('q-text');
+  var qOptionsEl = document.getElementById('q-options');
+  var progressFill = document.getElementById('progress-fill');
+  var backBtn = document.getElementById('back-btn');
+
+  qTotalEl.textContent = QUESTIONS.length;
+
+  function renderQuestion(){
+    var idx = current;
+    var item = QUESTIONS[idx];
+    qCurrentEl.textContent = idx+1;
+    qRegionEl.textContent = item.region;
+    qSceneEl.textContent = item.scene;
+    qTextEl.textContent = item.q;
+    progressFill.style.width = (((idx)/QUESTIONS.length)*100 + (100/QUESTIONS.length)) + '%';
+    backBtn.disabled = idx===0;
+
+    qOptionsEl.innerHTML = '';
+    var letters = ['А','Б','В','Г','Д','Е'];
+    item.opts.forEach(function(opt, i){
+      var btn = document.createElement('button');
+      btn.className = 'opt';
+      btn.innerHTML = '<span class="letter">'+letters[i]+'</span><span>'+opt.t+'</span>';
+      btn.addEventListener('click', function(){ selectOption(i); });
+      qOptionsEl.appendChild(btn);
+    });
+  }
+
+  function selectOption(i){
+    answers[current] = i;
+    if(current < QUESTIONS.length-1){
+      current++;
+      renderQuestion();
+    } else {
+      computeResult();
+    }
+  }
+
+  backBtn.addEventListener('click', function(){
+    if(current>0){ current--; renderQuestion(); }
+  });
+
+  document.getElementById('start-btn').addEventListener('click', function(){
+    showScreen('gender');
+  });
+  document.getElementById('gender-back').addEventListener('click', function(){
+    showScreen('hero');
+  });
+  function pickGender(g){
+    gender = g;
+    current = 0;
+    resetScores();
+    answers = new Array(QUESTIONS.length).fill(null);
+    renderQuestion();
+    showScreen('quiz');
+  }
+  document.getElementById('pick-m').addEventListener('click', function(){ pickGender('m'); });
+  document.getElementById('pick-f').addEventListener('click', function(){ pickGender('f'); });
+
+  function computeResult(){
+    resetScores();
+    QUESTIONS.forEach(function(item, qi){
+      var ai = answers[qi];
+      if(ai===null) return;
+      var s = item.opts[ai].s;
+      Object.keys(s).forEach(function(a){ scores[a] += s[a]; });
+    });
+    var winner = ARCHETYPE_ORDER[0];
+    ARCHETYPE_ORDER.forEach(function(a){
+      if(scores[a] > scores[winner]) winner = a;
+    });
+    renderResult(winner);
+    showScreen('result');
+  }
+
+  function renderResult(archetypeKey){
+    var pool = GODS[gender];
+    var god = pool[archetypeKey];
+    document.getElementById('result-icon').innerHTML = ICONS[god.key];
+    document.getElementById('result-name').textContent = god.name;
+    document.getElementById('result-title').textContent = god.title;
+    document.getElementById('result-desc').textContent = god.desc;
+    document.getElementById('result-note').textContent = god.note;
+
+    var strengthsEl = document.getElementById('result-strengths');
+    strengthsEl.innerHTML = '';
+    god.strengths.forEach(function(s){ var li=document.createElement('li'); li.textContent=s; strengthsEl.appendChild(li); });
+
+    var watchEl = document.getElementById('result-watch');
+    watchEl.innerHTML = '';
+    god.watch.forEach(function(s){ var li=document.createElement('li'); li.textContent=s; watchEl.appendChild(li); });
+
+    var allEl = document.getElementById('all-gods');
+    allEl.innerHTML = '';
+    ARCHETYPE_ORDER.forEach(function(a){
+      var pill = document.createElement('span');
+      pill.className = 'god-pill' + (a===archetypeKey ? ' current' : '');
+      pill.textContent = pool[a].name;
+      allEl.appendChild(pill);
+    });
+  }
+
+  document.getElementById('retake-btn').addEventListener('click', function(){
+    showScreen('hero');
+  });
+
+  document.getElementById('share-btn').addEventListener('click', function(){
+    var name = document.getElementById('result-name').textContent;
+    var title = document.getElementById('result-title').textContent;
+    var text = 'На яхте «Одиссея» я — ' + name + ' (' + title + '). Пройди тест и узнай, кто ты в команде: ' + window.location.href;
+    var hint = document.getElementById('copy-hint');
+    function showHint(msg){ hint.textContent = msg; setTimeout(function(){ hint.textContent=''; }, 2500); }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){ showHint('Скопировано!'); }, function(){ showHint(text); });
+    } else {
+      showHint(text);
+    }
+  });
+
+})();
+</script>
